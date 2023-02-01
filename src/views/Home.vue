@@ -3,7 +3,14 @@
   <div class="home">
     <div class="feature-card">
       <router-link to="/movies/f23323j">
-        <img src="../assets/image.png" alt="Vue movie app" class="featured-img">
+
+        <v-img
+            :aspect-ratio="10/4"
+            
+            src="../assets/image.png"
+            :class="img"
+            style="100%;width:300;"
+          ></v-img>
 
         <div class="details">
           <h3>Vue App movie</h3>
@@ -14,11 +21,36 @@
     </div>
 
     <form @submit.prevent="SearchMovies()" class="search-box">
-        <input type="text" placeholder="Search movie's name . . . " v-model.trim.lazy="search">
-        <!--img src="../assets/search.png" alt="Submit" class="img-submit"-->
+        <input type="text" placeholder="Search movie . . . . . " v-model.trim.lazy="search">
+        <button type="submit">
+<v-icon>mdi-magnify</v-icon>
+        </button>
     </form>
   
   </div>
+
+    <v-row>
+      <v-col cols="4" >
+          <v-autocomplete
+            v-model="value"
+            :items="items"
+            dense
+            filled
+            label="data"
+          ></v-autocomplete>
+        </v-col>
+
+             <v-file-input
+                v-model="files"
+                placeholder="Upload your documents"
+                label="Select file"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+            </v-file-input>
+
+            
+    </v-row>
 
     <div class="movies-list">
       <div class="movie" v-for="movie in movies" :key="movie.omdbID">
@@ -44,7 +76,9 @@
 
      data(){
         return{
-
+          img:'images',
+          items: ['foo', 'bar', 'fizz', 'buzz'],
+          files: [],
         }
      },
 
@@ -82,7 +116,7 @@
   .feature-card{
       position:relative;
 
-    .featured-img{
+    .images{
         position:relative;
         display:block;
         width:100%;
@@ -113,6 +147,36 @@
     }
 
   }
+
+  form{
+      display:flex;
+      max-width:480px;
+      margin:0 auto 1.5rem;
+  }
+
+   button{
+          margin-top:-57px;
+          margin-left:260px;          
+          font-size:20px;
+          color:white;
+          background-color:#42B883;
+          border-radius:8px;
+          text-transform:uppercase;
+          transition:0.4s;
+          border:none;
+          background:none;
+          outline:none;
+
+          .img-submit{
+              max-width:40px;
+              max-height:40px;
+          }
+
+          .img-submit:hover{
+            cursor:pointer;
+          }
+
+    }
 
   .search-box{
       display:flex;
@@ -146,20 +210,6 @@
             box-shadow:0px 3px 6px rgb(0,0,0,0.4);
           }
         
-        }
-
-        &[type="submit"]{
-          margin-top:-60px;
-          margin-left:400px;
-          width:100%;
-          max-width:200px;
-          font-size:20px;
-          color:white;
-          background-color:#42B883;
-          border-radius:8px;
-          padding:10px 16px;
-          text-transform:uppercase;
-          transition:0.4s;
         }
 
       }
