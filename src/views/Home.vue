@@ -2,26 +2,38 @@
 
   <div class="home">
     <div class="feature-card">
+        <div class="title" style="padding:10px;">
+          <v-img
+            :aspect-ratio="10/4"
+            src="../assets/Dilo.jpg"
+            :class="img"
+            style="float:right;margin-right:2px;margin-top:1px;width:50px;height:50px;background-color:white; border-radius:50%;border:1px solid white;"
+          ></v-img>
+
+          <h1 style='text-align:center;'>Movie App</h1>
+        </div>
       <router-link to="/movies/f23323j">
 
         <v-img
             :aspect-ratio="10/4"
             
-            src="../assets/image.png"
+            src="../assets/movies-img.jpg"
             :class="img"
-            style="100%;width:300;"
+            style="width:100%;"
           ></v-img>
 
         <div class="details">
           <h3>Vue App movie</h3>
-          <p>This is my second vuejs app which will be integrated with movie api colled omdbapi</p>
+          <p>This is movie app which will be integrated with movie api colled omdbapi , it's designed by BIKMAN DJUMA</p>
         </div>
 
       </router-link>
     </div>
+    
+    <div id="error" style="display:none;color:red;text-align:center;">Search field is required !</div>
 
     <form @submit.prevent="SearchMovies()" class="search-box">
-        <input type="text" placeholder="Search movie . . . . . " v-model.trim.lazy="search">
+        <input type="text" placeholder="Search movie . . . . . " v-model.trim.lazy="search" id="myInputSearch">
         <button type="submit">
           <v-icon>mdi-magnify</v-icon>
         </button>
@@ -65,7 +77,7 @@
         
         const SearchMovies = () => {
             if(search.value == ""){
-                alert('Search field is required !');
+                document.getElementById('error').style.display='block';
             }else{
                 fetch(`http://www.omdbapi.com/?s=${search.value}&apikey=${env.apikey}`)
                   .then(response => response.json())
@@ -74,14 +86,16 @@
                     search.value="";
                     //console.log(data);
                 });
+
+                document.getElementById('error').style.display="none";
+                document.getElementById('myInputSearch').value="";
             }
         } 
 
          return {
             search,
             movies,
-            SearchMovies
-
+            SearchMovies,
          }   
 
      }
@@ -93,6 +107,18 @@
 
   .feature-card{
       position:relative;
+
+    .title{
+      background-color:steelblue;
+      color:white;
+    }
+
+    @media(max-width:900px){
+      .images{
+        position:absolute;
+        margin-top:-14px;
+      }
+    }
 
     .images{
         position:relative;
