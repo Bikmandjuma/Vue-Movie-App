@@ -23,34 +23,11 @@
     <form @submit.prevent="SearchMovies()" class="search-box">
         <input type="text" placeholder="Search movie . . . . . " v-model.trim.lazy="search">
         <button type="submit">
-<v-icon>mdi-magnify</v-icon>
+          <v-icon>mdi-magnify</v-icon>
         </button>
     </form>
   
   </div>
-
-    <v-row>
-      <v-col cols="4" >
-          <v-autocomplete
-            v-model="value"
-            :items="items"
-            dense
-            filled
-            label="data"
-          ></v-autocomplete>
-        </v-col>
-
-             <v-file-input
-                v-model="files"
-                placeholder="Upload your documents"
-                label="Select file"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-            </v-file-input>
-
-            
-    </v-row>
 
     <div class="movies-list">
       <div class="movie" v-for="movie in movies" :key="movie.omdbID">
@@ -113,6 +90,7 @@
 </script>
 
 <style lang="scss">
+
   .feature-card{
       position:relative;
 
@@ -123,6 +101,10 @@
         height:300px;
         object-fit:cover;
         z-index:0;
+    }
+
+    a{
+      text-decoration:none;
     }
 
     .details{
